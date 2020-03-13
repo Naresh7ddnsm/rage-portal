@@ -1,0 +1,6 @@
+.navigation svg{
+    margin-right: .8rem;
+}
+.navigation .sub-menu-arrow:nth-child(2n){
+    display: none;
+}

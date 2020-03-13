@@ -1,0 +1,6 @@
+label{
+    font-weight: bold;
+}
+textarea.auto-height{
+    height: auto!important;
+}

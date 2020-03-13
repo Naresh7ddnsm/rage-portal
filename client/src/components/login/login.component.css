@@ -1,0 +1,33 @@
+.form-membership form.login-form .form-group input{
+    margin-bottom: 0;
+}
+.form-membership form.login-form .invalid-feedback{
+    /* display: block; */
+    text-align: left;
+}
+.user_avilable_message {
+    margin-top: 8px;
+    text-align: left;
+    color: red;
+    font-size: 12px;
+    margin-bottom: 8px;
+    line-height: 16px;
+}
+
+.lds-ellipsis{
+    position: absolute;
+    left: 50%; 
+    transform: translateX(-50%);
+    top: 0;
+}
+
+.login-progress{
+    position: absolute;
+    left: 0; top: 0;
+    z-index: 21;
+    width: 100%;
+    border-radius: 0;
+}
+.login-progress .progress-bar{
+    background-color: #3f51b5;
+}

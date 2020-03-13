@@ -1,0 +1,130 @@
+import React, { useState, useEffect } from "react";
+import "./profile-update.component.css";
+import { validate, update } from "../functionality/functionality";
+
+import { Loader } from "../loader/loader.component";
+
+const ProfileUpdate = props => {
+
+    const [profile, setProfile] = useState({
+        first_name: '', last_name: '', username: '', position: '', dob: '', city: '', state: '', zip: '', phonenumber: '', address: ''
+    });
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        setError('')
+
+        const validate_form = validate('update-form');
+
+        if (validate_form.isValid) {
+            update(profile).then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err)
+                setError('Something went wrong!');
+                setLoading(false);
+            });
+        }
+    }
+
+    const onChange = e => {
+        const ele = e.target;
+        setProfile(prev => ({
+            ...prev, [ele.name]: ele.value
+        }));
+    }
+
+
+
+    const { first_name, last_name, username, position, dob, city, state, zip, phonenumber, address } = profile
+
+    return (
+        <div className="card">
+            <div className="card">
+                <div className="card-body">
+                    <form id="update-form" onSubmit={onSubmit} >
+                        <div className="form-row">
+                            <div className="col-md-6 mb-4">
+                                <label>First name</label>
+                                <input type="text" data-type="alpha" name="first_name" value={first_name} onChange={onChange} className="form-control required" placeholder="First name" />
+                                <div className="invalid-feedback"> Looks good! </div>
+                            </div>
+                            <div className="col-md-6 mb-4">
+                                <label>Last name</label>
+                                <input type="text" data-type="alpha" name="last_name" value={last_name} onChange={onChange} className="form-control required" placeholder="Last name" />
+                                <div className="invalid-feedback"> Looks good! </div>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="col-md-12 mb-4">
+                                <label>Username</label>
+                                <div className="input-group">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text">@</span>
+                                    </div>
+                                    <input type="text" data-type="alpha_space" name="username" value={username} onChange={onChange} className="form-control required" placeholder="Username" aria-describedby="inputGroupPrepend" />
+                                    <div className="invalid-feedback"> Please choose a username. </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="col-md-6 mb-4">
+                                <label>Position</label>
+                                <input type="text" data-type="alpha_space" name="position" value={position} onChange={onChange} className="form-control required" placeholder="Position" />
+                                <div className="invalid-feedback"> Please provide a valid city.</div>
+                            </div>
+                            <div className="col-md-6 mb-4">
+                                <label>DOB <span className="lable-note">(e.g: DD/MM/YYYY)</span></label>
+                                <input type="text" data-type="date" name="dob" value={dob} onChange={onChange} className="form-control required" placeholder="Date of Birth" />
+                                <div className="invalid-feedback"> Please provide a valid city.</div>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="col-md-6 mb-4">
+                                <label>City</label>
+                                <input type="text" data-type="alpha_space" name="city" value={city} onChange={onChange} className="form-control required" placeholder="City" />
+                                <div className="invalid-feedback"> Please provide a valid city.</div>
+                            </div>
+                            <div className="col-md-6 mb-4">
+                                <label>State</label>
+                                <input type="text" data-type="alpha_space" name="state" value={state} onChange={onChange} className="form-control required" placeholder="State" />
+                                <div className="invalid-feedback"> Please provide a valid state. </div>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="col-md-6 mb-4">
+                                <label>Zip</label>
+                                <input type="text" data-type="number" name="zip" value={zip} onChange={onChange} className="form-control required" placeholder="Zip" />
+                                <div className="invalid-feedback"> Please provide a valid zip. </div>
+                            </div>
+                            <div className="col-md-6 mb-4">
+                                <label>Phone Number</label>
+                                <div className="input-group">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text">+91</span>
+                                    </div>
+                                    <input type="text" data-type="number" name="phonenumber" value={phonenumber} onChange={onChange} className="form-control required" placeholder="Phone Number" aria-describedby="inputGroupPrepend" />
+                                    <div className="invalid-feedback"> Please choose a username. </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="col-md-6 mb-4">
+                                <label>Address</label>
+                                <div className="input-group">
+                                    <textarea type="text" data-type="empty" name="address" value={address} onChange={onChange} className="form-control required form-control auto-height" rows="5"></textarea>
+                                    <div className="invalid-feedback"> Please add your address. </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button className="btn btn-primary" type="submit">Submit form</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default ProfileUpdate;

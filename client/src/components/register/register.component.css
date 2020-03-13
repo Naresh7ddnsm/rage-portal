@@ -1,0 +1,6 @@
+.form-membership form.register-form .form-group input{
+    margin-bottom: 0;
+}
+.form-membership form.register-form .invalid-feedback{
+    text-align: left;
+}

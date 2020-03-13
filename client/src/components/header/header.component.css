@@ -1,0 +1,9 @@
+.progress{
+    height: 8px;
+}
+.progress-bar{
+    width: 25px;
+}
+.header .header-body{
+    justify-content: flex-end;
+}
