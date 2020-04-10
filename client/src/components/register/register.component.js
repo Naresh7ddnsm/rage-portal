@@ -83,7 +83,7 @@ class Register extends Component {
                             <div className="invalid-feedback"></div>
                         </div>
                         <div className="form-group">
-                            <input onChange={this.onChange} data-type="email" name="email" value={this.state.email} className="form-control required" placeholder="Email" />
+                            <input onChange={this.onChange} data-type="email" type="email" name="email" value={this.state.email} className="form-control required" placeholder="Email" />
                             <div className="invalid-feedback"></div>
                         </div>
                         <div className="form-group">

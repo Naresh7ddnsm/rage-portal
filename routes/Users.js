@@ -65,7 +65,9 @@ users.post('/login', (req, res) => {
                     let token = jwt.sign(payload, SECRET_KEY, {
                         expiresIn: 1440
                     })
-                    req.session.userId = user._id;
+                    // Disabled
+                    // req.session.userId = user._id;
+                    res.cookie('userToken', token, { httpOnly: false })
                     res.send(token);
                 } else {
                     res.json({ error: "User dosn't exists" })
@@ -73,12 +75,12 @@ users.post('/login', (req, res) => {
             } else {
                 res.json({ error: "User dosn't exists" })
             }
+            // console.log('req.session.userId : ', req.session.userId)
         })
         .catch(err => {
             res.send('error: ' + err);
         })
 })
-
 
 users.post('/update', (req, res) => {
 
@@ -111,18 +113,59 @@ users.post('/update', (req, res) => {
 
 users.get("/auth", (req, res) => {
 
-    if (req.session.userId) {
-        User.findOne({ _id: req.session.userId })
-            .then(user => {
-                console.log(user)
-                res.send(user);
-            })
-            .catch(err => {
-                res.send("error: " + err);
-            })
+    const token = req.cookies.userToken;
+
+    if(!token){
+        return res.send ({error: 'Unauthorized: No token provided'});
     } else {
-        res.json({ error: "Authentication required" })
+        jwt.verify(token, env.SECRET_KEY, (err, decoded) => {
+            if (err) {
+                // Invalid Token
+                return res.send ({error: 'Unauthorized: Invalid token provided'});
+                // return res.send ({error: err});
+            } else {
+                // Valid User
+                //req.email = decoded.email;
+                return res.send (decoded);
+            }
+          });
     }
+    
+})
+
+users.get('/:id', (req, res) => {
+    let id = req.params.id;
+
+    // console.log("ididid: ", id)
+
+    // User.findById({_id: new ObjectId(id)})
+    User.findById({_id: id})
+    .then(user => {
+
+        // console.log("useruser: ", user)
+
+        if(user) {
+            let user_details = {
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "email": user.email,
+                "date": user.date,
+                "address": user.address,
+                "city": user.city,
+                "dob": user.dob,
+                "phonenumber": user.phonenumber,
+                "position": user.position,
+                "state" : user.state,
+                "zip": user.zip
+            }
+            return res.send(user_details);
+        } else {
+            return res.json({ error: "User dosn't exists" })
+        }
+    })
+    .catch(err => {
+        return res.json({ error: err});
+    })
 })
 
 module.exports = users;

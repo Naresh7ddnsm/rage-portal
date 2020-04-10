@@ -67,7 +67,7 @@ const Login = props => {
                 <h5>Sign in</h5>
                 <form onSubmit={onSubmit} id="login-form" className="login-form">
                     <div className="form-group">
-                        <input type="text" onChange={updateEmail} data-type="email" name="email" value={email} className="form-control required" placeholder="Username or email" autoFocus />
+                        <input type="text" onChange={updateEmail} autoComplete="false" data-type="email" name="email" value={email} className="form-control required" placeholder="Username or email" autoFocus />
                         <div className="invalid-feedback"></div>
                     </div>
                     <div className="form-group">

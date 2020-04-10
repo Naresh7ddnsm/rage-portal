@@ -19,17 +19,20 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }))
 
-app.use(session({
-	name: env.SESS_NAME,
-	secret: env.SECRET_KEY,
-	resave: false,
-	saveUninitialized: true,
-	cookie: {
-		sameSite: false,
-		secure: secret,
-		maxAge: env.SESS_LIFE,
-	}
-}))
+
+// Disabled session
+// app.use(session({
+// 	name: env.SESS_NAME,
+// 	secret: env.SECRET_KEY,
+// 	resave: true,
+// 	saveUninitialized: true,
+// 	cookie: {
+// 		sameSite: false,
+// 		secure: secret,
+// 		maxAge: env.SESS_LIFE,
+// 		httpOnly: false
+// 	}
+// }))
 
 const MongoURI = "mongodb://localhost:27017/rage-live";
 
@@ -39,13 +42,16 @@ mongoose.connect(MongoURI, { useNewUrlParser: true })
 
 let Users = require('./routes/Users')
 
-app.use((req, res, next) => {
-	const { userId } = req.session;
-	if (userId) {
-		res.locals.user = User.findOne({ _id: userId })
-	}
-	next();
-})
+
+// Disabled
+// app.use((req, res, next) => {
+// 	const { userId } = req.session;
+// 	console.log(userId);
+// 	if (userId) {
+// 		res.locals.user = User.findOne({ _id: userId })
+// 	}
+// 	next();
+// })
 
 app.use('/users', Users);
 

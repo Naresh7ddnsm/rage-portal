@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 import { Link, WithRoute } from "react-router-dom";
-
 import { Store } from "../../store/store";
 
 
-const ProfileCard = () => {
+const ProfileCard = (props) => {
 
     const [state, setState] = useContext(Store);
-    const { first_name, last_name } = state.AUTH_USER;
-
+    // const { first_name, last_name } = state.AUTH_USER;
+    const { first_name, last_name, position } = props.user;
 
     return (
         <div className="card">
@@ -17,7 +16,7 @@ const ProfileCard = () => {
                     <img src="assets/media/image/user/women_avatar1.jpg" className="rounded-circle" alt="..." />
                 </figure>
                 <h5 className="mb-1"> {`${first_name} ${last_name}`}</h5>
-                <p className="text-muted small">Web Developer</p>
+                <p className="text-muted small"> {position}</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus repudiandae eveniet
                     harum.</p>
                 <Link to="/profile/update" className="btn btn-outline-primary">

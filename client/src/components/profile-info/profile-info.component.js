@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 
 import { Store } from "../../store/store";
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
 
     const [state, setState] = useContext(Store);
-    const { first_name, last_name, email } = state.AUTH_USER;
+    // const { first_name, last_name, email } = state.AUTH_USER;
+    const { first_name, last_name, email, address, dob, city, position, phonenumber } = props.user;
 
     return (
         <div className="card">
@@ -25,24 +26,24 @@ const ProfileInfo = () => {
                     <div className="col-6">{last_name}</div>
                 </div>
                 <div className="row mb-2">
-                    <div className="col-6 text-muted">Age:</div>
-                    <div className="col-6">26</div>
+                    <div className="col-6 text-muted">DOB:</div>
+                    <div className="col-6">{dob}</div>
                 </div>
                 <div className="row mb-2">
                     <div className="col-6 text-muted">Position:</div>
-                    <div className="col-6">Web Designer</div>
+                    <div className="col-6">{position}</div>
                 </div>
                 <div className="row mb-2">
                     <div className="col-6 text-muted">City:</div>
-                    <div className="col-6">New York, USA</div>
+                    <div className="col-6">{city}</div>
                 </div>
                 <div className="row mb-2">
                     <div className="col-6 text-muted">Address:</div>
-                    <div className="col-6">228 Park Ave Str.</div>
+                    <div className="col-6">{address}</div>
                 </div>
                 <div className="row mb-2">
                     <div className="col-6 text-muted">Phone:</div>
-                    <div className="col-6">+1-202-555-0134</div>
+                    <div className="col-6">{phonenumber}</div>
                 </div>
                 <div className="row mb-2">
                     <div className="col-6 text-muted">Email:</div>

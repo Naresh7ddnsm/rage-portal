@@ -22,35 +22,35 @@ const UserSchema = new Schema({
     },
     username: {
         type: 'string',
-        required: true
+        required: false
     },
     position: {
         type: 'string',
-        required: true
+        required: false
     },
     dob: {
         type: 'string',
-        required: true
+        required: false
     },
     city: {
         type: 'string',
-        required: true
+        required: false
     },
     state: {
         type: 'string',
-        required: true
+        required: false
     },
     zip: {
         type: 'number',
-        required: true
+        required: false
     },
     phonenumber: {
         type: 'number',
-        required: true
+        required: false
     },
     address: {
         type: 'string',
-        required: true
+        required: false
     }
 })
 

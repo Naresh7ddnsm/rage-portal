@@ -25,8 +25,38 @@ export const diff_years = (dt2, dt1) => {
     diff /= (60 * 60 * 24);
     return Math.abs(Math.round(diff / 365.25));
 }
+
+export const getCookie = (name) => {
+    // Split cookie string and get all individual name=value pairs in an array
+    var cookieArr = document.cookie.split(";");
+    
+    // Loop through the array elements
+    for(var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+        
+        /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+        if(name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    
+    // Return null if not found
+    return null;
+}
+
+export const getFromUser = (x) => {
+
+    const token = getCookie('userToken');
+    const _x = jwt_decode(token);
+    return  _x[x];
+}
+
 export const getUser = () => {
-    const token = localStorage.getItem('userToken');
+    // const token = localStorage.getItem('userToken');
+    const token = getCookie('userToken');
+    // console.log("tokentoken: ", token)
     const USER = jwt_decode(token);
     return token ? USER : false;
 }
@@ -57,6 +87,9 @@ export const validate = formID => {
     const form_result = {
         isValid: true
     };
+
+
+    
 
     for (let i = 0; i < fields.length; i++) {
         const field = fields[i]
@@ -210,7 +243,7 @@ export const register = newUser => {
 }
 
 export const update = profile => {
-    return axios.post("/users/update", profile)
+    return axios.post("users/update", profile)
         .then(res => {
             return res.data;
         })
@@ -225,9 +258,10 @@ export const login = user => {
         password: user.password
     })
         .then(res => {
-            if (!res.data.error) {
-                localStorage.setItem('userToken', res.data);
-            }
+            // if (!res.data.error) {
+            //     localStorage.setItem('userToken', res.data);
+            // }
+            console.log('abcd: ', res.data)
             return res.data;
         })
         .catch(err => {

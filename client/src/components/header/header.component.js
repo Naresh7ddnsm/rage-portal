@@ -22,7 +22,7 @@ const Header = props => {
         <React.Fragment>
             <div className="header">
                 <div id="header-logo">
-                    <a href="index.html">
+                    <a href="/">
                         <img className="logo" src="/assets/media/image/logo.png" alt="logo" />
                         <img className="logo-sm" src="/assets/media/image/logo-sm.png" alt="small logo" />
                         <img className="logo-light" src="/assets/media/image/logo-light.png" alt="light logo" />
