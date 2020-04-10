@@ -23,11 +23,11 @@ const Login = props => {
         setPassword(e.target.value);
     }
 
-    const storeUser = () => {
-        const USER = getUser();
-        const UPDATE_USER = { ...USER, USER_STATUS: true }
-        setState(prev => ({ ...prev, AUTH_USER: UPDATE_USER }));
-    }
+    // const storeUser = () => {
+    //     const USER = getUser();
+    //     const UPDATE_USER = { ...USER, USER_STATUS: true }
+    //     setState(prev => ({ ...prev, AUTH_USER: UPDATE_USER }));
+    // }
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -44,7 +44,7 @@ const Login = props => {
             login(user)
                 .then(res => {
                     if (!res.error) {
-                        storeUser();
+                        // storeUser();
                         props.history.push('/profile');
                     } else {
                         setError(res.error);

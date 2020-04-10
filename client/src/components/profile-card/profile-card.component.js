@@ -7,7 +7,8 @@ const ProfileCard = (props) => {
 
     const [state, setState] = useContext(Store);
     // const { first_name, last_name } = state.AUTH_USER;
-    const { first_name, last_name, position } = props.user;
+    // const { first_name, last_name, position } = props.user;
+    const { first_name, last_name, position } = state.AUTH_USER;
 
     return (
         <div className="card">

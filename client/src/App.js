@@ -27,7 +27,7 @@ const App = (props) => {
               <Route exact path="/register" component={register} />
               <Route exact path='/404' component={live404} />
               <PrivateRoute exact path="/profile" component={Profile} />
-              <Route exact path="/profile/update" component={ProfileUpdateView} />
+              <PrivateRoute exact path="/profile/update" component={ProfileUpdateView} />
               <Route component={live404} />
             </Switch>
           </div>

@@ -84,7 +84,13 @@ users.post('/login', (req, res) => {
 
 users.post('/update', (req, res) => {
 
-    const { userId } = req.session;
+    const token = req.cookies.userToken
+    console.log(token)
+
+
+    const user = jwt_decode(token)
+    const { id } = user;
+
 
     let today = new Date();
     let userData = {
@@ -100,12 +106,12 @@ users.post('/update', (req, res) => {
         "phonenumber": req.body.phonenumber,
         "address": req.body.address
     }
-    if (userId) {
-        User.update({ _id: userId }, userData, function (err, numberAffected, rawResponse) {
+    if (id) {
+        User.update({ _id: id }, userData,  (err, numberAffected, rawResponse) => {
             console.log('numberAffected', numberAffected)
             console.log('rawResponse', rawResponse)
         })
-        return res.send(req.session);
+        return res.send(userData);
     } else {
         return res.send("User doesn't avilable");
     }
@@ -148,6 +154,7 @@ users.get('/:id', (req, res) => {
             let user_details = {
                 "first_name": user.first_name,
                 "last_name": user.last_name,
+                "username": user.username,
                 "email": user.email,
                 "date": user.date,
                 "address": user.address,

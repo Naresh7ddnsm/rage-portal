@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import {Link} from "react-router-dom";
 
 import { Store } from "../../store/store";
 
@@ -6,16 +7,21 @@ const ProfileInfo = (props) => {
 
     const [state, setState] = useContext(Store);
     // const { first_name, last_name, email } = state.AUTH_USER;
-    const { first_name, last_name, email, address, dob, city, position, phonenumber } = props.user;
+    // const { first_name, last_name, email, address, dob, city, position, phonenumber } = props.user;
+     const { first_name, last_name, email, address, dob, city, position, phonenumber } = state.AUTH_USER;
+    
 
     return (
         <div className="card">
             <div className="card-body">
                 <h6 className="card-title d-flex justify-content-between align-items-center">
                     Information
-                    <a href="#" className="btn btn-outline-light btn-sm">
+                    <Link to="/profile/update" className="btn btn-outline-light btn-sm">
+                    <i data-feather="edit-2" className="mr-2"></i> Edit
+                    </Link>
+                    {/* <a href="#" className="btn btn-outline-light btn-sm">
                         <i data-feather="edit-2" className="mr-2"></i> Edit
-                    </a>
+                    </a> */}
                 </h6>
                 <div className="row mb-2">
                     <div className="col-6 text-muted">First Name:</div>

@@ -9,29 +9,28 @@ import { updateBodyClass } from "../../components/functionality/functionality";
 const Profile = (props) => {
 
     updateBodyClass('');
+
     const [userInfo, setUserInfo] = useState({});
     
-    useEffect(() => {
-        const id = getFromUser('id');
-        axios.get("/users/"+id).then(res => {
-            setUserInfo(res.data)
-            // console.log("res: ", res.data)
-        })
-        .catch(err => {
-            console.log({"error": err});
-        })
-       
-    });
+    // useEffect(() => {
+    //     const id = getFromUser('id');
+    //     axios.get("/users/"+id).then(res => {
+    //         setUserInfo(res.data)
+    //     })
+    //     .catch(err => {
+    //         console.log({"error": err});
+    //     });
+    // },[]);
 
     return <MasterLayout>
         <div className="container-fluid">
             <div className="row">
                 <div className="col-md-6">
                     {/* {todos} */}
-                    <ProfileCard  user={userInfo}/>
+                    <ProfileCard />
                 </div>
                 <div className="col-md-6">
-                    <ProfileInfo user={userInfo}/>
+                    <ProfileInfo />
                 </div>
             </div>
         </div> 

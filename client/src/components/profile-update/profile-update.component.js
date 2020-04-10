@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { withRouter } from "react-router-dom";
 import "./profile-update.component.css";
 import { validate, update } from "../functionality/functionality";
 
 import { Loader } from "../loader/loader.component";
 
+import { Store } from "../../store/store";
+
 const ProfileUpdate = props => {
 
-    const [profile, setProfile] = useState({
-        first_name: '', last_name: '', username: '', position: '', dob: '', city: '', state: '', zip: '', phonenumber: '', address: ''
-    });
+    const [_state, _setState] = useContext(Store);
+
+    const form = { first_name: _state.AUTH_USER.first_name, last_name: _state.AUTH_USER.last_name, username: _state.AUTH_USER.username, position: _state.AUTH_USER.position, dob: _state.AUTH_USER.dob, city: _state.AUTH_USER.city, state: _state.AUTH_USER.state, zip: _state.AUTH_USER.zip, phonenumber: _state.AUTH_USER.phonenumber, address: _state.AUTH_USER.address };
+
+    const [profile, setProfile] = useState(form);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -20,9 +25,10 @@ const ProfileUpdate = props => {
 
         if (validate_form.isValid) {
             update(profile).then(res => {
-                console.log(res);
+                const auth_user = {..._state.AUTH_USER, ...res};
+                _setState(prev => ({...prev, AUTH_USER: auth_user}))
+                props.history.push('/profile');
             }).catch(err => {
-                console.log(err)
                 setError('Something went wrong!');
                 setLoading(false);
             });
@@ -35,7 +41,6 @@ const ProfileUpdate = props => {
             ...prev, [ele.name]: ele.value
         }));
     }
-
 
 
     const { first_name, last_name, username, position, dob, city, state, zip, phonenumber, address } = profile
@@ -127,4 +132,4 @@ const ProfileUpdate = props => {
     )
 }
 
-export default ProfileUpdate;
+export default withRouter(ProfileUpdate);
