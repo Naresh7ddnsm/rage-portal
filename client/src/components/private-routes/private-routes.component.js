@@ -33,7 +33,7 @@ class PrivateRoute extends React.Component {
         };
 
 
-        axios.get("users/auth", {withCredentials: true})
+        axios.get("/users/auth", {withCredentials: true})
             .then(res => {
                 if(res.data.error){
                     this.setState(() => ({ isLoading: false, isLoggedIn: false }));
@@ -48,7 +48,6 @@ class PrivateRoute extends React.Component {
     }
 
     render() {
-
         return this.state.isLoading ? null :
             this.state.isLoggedIn ?
             <Route path={this.props.path} component={this.props.component} exact={this.props.exact}/> :

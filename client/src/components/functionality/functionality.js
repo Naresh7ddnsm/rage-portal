@@ -53,6 +53,7 @@ export const getFromUser = (x) => {
     return  _x[x];
 }
 
+
 export const getUser = () => {
     // const token = localStorage.getItem('userToken');
     const token = getCookie('userToken');

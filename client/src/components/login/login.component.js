@@ -44,7 +44,6 @@ const Login = props => {
             login(user)
                 .then(res => {
                     if (!res.error) {
-                        // storeUser();
                         props.history.push('/profile');
                     } else {
                         setError(res.error);
