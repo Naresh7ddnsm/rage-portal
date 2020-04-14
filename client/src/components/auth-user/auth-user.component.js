@@ -33,7 +33,7 @@ class AuthUser extends React.Component {
         };
 
 
-        axios.get("/users/auth", {withCredentials: true})
+        axios.get("/api/auth", {withCredentials: true})
             .then(res => {
                 if(res.data.error){
                     this.setState(() => ({ isLoading: false, isLoggedIn: false }));

@@ -3,10 +3,10 @@ import { withRouter } from "react-router-dom";
 import "./profile-update.component.css";
 import { validate, update } from "../functionality/functionality";
 
-import Preloader from "../preloader/preloader.component";
+// import Preloader from "../preloader/preloader.component";
 
 import { Store } from "../../store/store";
-import Profile from "../../views/profile/profile";
+// import Profile from "../../views/profile/profile";
 
 const ProfileUpdate = props => {
 
@@ -17,11 +17,11 @@ const ProfileUpdate = props => {
 
     const [profile, setProfile] = useState(form);
     const [error, setError] = useState('');
-    const [preLoading, setPreLoading] = useState(false);
+    // const [preLoading, setPreLoading] = useState(false);
 
 
-    console.log("sadsdsdsdsdssd: ", _state)
-    console.log("sadsdsdsdsdssd: ", profile)
+    // console.log("sadsdsdsdsdssd: ", _state)
+    // console.log("sadsdsdsdsdssd: ", profile)
 
 
 
@@ -38,7 +38,7 @@ const ProfileUpdate = props => {
                 props.history.push('/profile');
             }).catch(err => {
                 setError('Something went wrong!');
-                setPreLoading(false);
+                // setPreLoading(false);
             });
         }
     }
@@ -54,10 +54,10 @@ const ProfileUpdate = props => {
     useEffect(() => {
         if(!profile.first_name) {
             if(!_state.AUTH_USER.USER_STATUS){
-                setPreLoading(true)
+                // setPreLoading(true)
             } else {
                 setProfile(_state.AUTH_USER)
-                setPreLoading(false)
+                // setPreLoading(false)
             }
         }
     })
@@ -66,10 +66,8 @@ const ProfileUpdate = props => {
 
     return (
 
-       <React.Fragment>
-           { preLoading && <Preloader /> }
-            { !preLoading && 
-                <div className="card">
+       <React.Fragment> 
+            <div className="card">
                 <div className="card">
                     <div className="card-body">
                         <form id="update-form" onSubmit={onSubmit} >
@@ -152,7 +150,7 @@ const ProfileUpdate = props => {
                     </div>
                 </div>
             </div>
-            }
+            
        </React.Fragment>
 
         

@@ -13,7 +13,8 @@ class Register extends Component {
             last_name: '',
             email: '',
             password: '',
-            loading: false
+            loading: false,
+            error: ''
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -51,18 +52,22 @@ class Register extends Component {
                     console.log('reg comp: ', res);
                     if (!res.error) {
                         this.props.history.push('/login');
+                    } else {
+                        this.setState({
+                            error: res.error
+                        })
                     }
                 })
                 .catch(err => {
                     this.setState({
-                        loading: true
+                        loading: false
                     })
                     console.log('register err: ' + err);
                 })
         }
     }
     render() {
-        const { loading } = this.state;
+        const { loading, error } = this.state;
         return (
             <React.Fragment>
                 <div className="form-wrapper position-relative">
@@ -90,6 +95,9 @@ class Register extends Component {
                             <input onChange={this.onChange} data-type="password" name="password" value={this.state.password} type="password" className="form-control required" placeholder="Password" />
                             <div className="invalid-feedback"></div>
                         </div>
+
+                        { this.state.error && <p className="invalid-feedback show">Email id already exist</p> }
+
                         <button type="submit" className="btn btn-primary btn-block">Register</button>
                         <hr />
                         <p className="text-muted">Already have an account?</p>

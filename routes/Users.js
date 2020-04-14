@@ -4,8 +4,8 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const jwt_decode = require("jwt-decode");
-const axios = require("axios");
-var session = require('express-session')
+// const axios = require("axios");
+// var session = require('express-session')
 const env = require('../env');
 
 
@@ -80,6 +80,16 @@ users.post('/login', (req, res) => {
         .catch(err => {
             res.send('error: ' + err);
         })
+})
+
+users.post('/logout', (req, res) => {
+    const token = req.cookies.userToken;
+    if(token){
+        res.clearCookie('userToken', token, { httpOnly: true  });
+        res.send("Successfully logged out");
+    } else {
+        res.json({error: "user dosn't exists"});
+    }
 })
 
 users.post('/update', (req, res) => {
@@ -172,8 +182,6 @@ users.get('/active', (req, res) => {
     } else {
        return res.json({error: "User dosn't exists"});
     }
-
-    
 })
 
 users.get('/:id', (req, res) => {

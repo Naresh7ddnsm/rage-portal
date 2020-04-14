@@ -14,7 +14,7 @@ const Profile = (props) => {
     
     // useEffect(() => {
     //     const id = getFromUser('id');
-    //     axios.get("/users/"+id).then(res => {
+    //     axios.get("/api/"+id).then(res => {
     //         setUserInfo(res.data)
     //     })
     //     .catch(err => {

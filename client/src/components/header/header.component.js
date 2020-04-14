@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from "axios";
 import { withRouter } from "react-router-dom";
 
 
@@ -12,9 +13,13 @@ const Header = props => {
 
     const logout = event => {
         event.preventDefault();
-        localStorage.removeItem('userToken');
-        setState((prev) => ({ ...prev, AUTH_USER: {} }));
-        props.history.push('/');
+        axios.post('/api/logout').then(res => {
+            setState((prev) => ({ ...prev, AUTH_USER: {} }));
+            props.history.push('/');
+        }).catch(err => {
+            console.log('error: ', err);
+        })
+        
     }
     const { first_name, last_name, USER_STATUS } = state.AUTH_USER;
 

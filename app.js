@@ -53,7 +53,7 @@ let Users = require('./routes/Users')
 // 	next();
 // })
 
-app.use('/users', Users);
+app.use('/api', Users);
 
 
 app.listen(port, () => {
