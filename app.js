@@ -1,3 +1,4 @@
+const path = require('path');
 let express = require('express');
 let cors = require('cors');
 let bodyParser = require('body-parser');
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }))
 
+app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
 
 // Disabled session
 // app.use(session({

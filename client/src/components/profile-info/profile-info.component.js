@@ -17,7 +17,7 @@ const ProfileInfo = (props) => {
                 <h6 className="card-title d-flex justify-content-between align-items-center">
                     Information
                     <Link to="/profile/update" className="btn btn-outline-light btn-sm">
-                    <i data-feather="edit-2" className="mr-2"></i> Edit
+                    <i data-feather="edit-2" className="mr-2"></i> Update
                     </Link>
                     {/* <a href="#" className="btn btn-outline-light btn-sm">
                         <i data-feather="edit-2" className="mr-2"></i> Edit

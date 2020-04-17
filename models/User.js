@@ -51,6 +51,9 @@ const UserSchema = new Schema({
     address: {
         type: 'string',
         required: false
+    },
+    image: {
+        type: 'string'
     }
 })
 

@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const users = express.Router();
 const cors = require("cors");
@@ -6,6 +7,7 @@ const bcrypt = require("bcrypt");
 const jwt_decode = require("jwt-decode");
 // const axios = require("axios");
 // var session = require('express-session')
+const multer  = require('multer');
 const env = require('../env');
 
 
@@ -14,6 +16,41 @@ let User = require('../models/User');
 users.use(cors());
 
 const { SECRET_KEY } = env;
+
+
+
+const storage_profile = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/profile-image')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  })
+   
+const upload_profile = multer({ 
+    storage: storage_profile, 
+    fileFilter: function (req, file, callback) {
+        var ext = path.extname(file.originalname);
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            return callback(new Error('Only images are allowed'))
+        }
+        callback(null, true)
+    }
+})
+
+
+users.post("/upload-image", upload_profile.single('profileImage'), (req, res, next) => {
+
+    const file = req.file
+
+    if (!file) {
+        const error = new Error('Please upload a file')
+        error.httpStatusCode = 400
+        return next(error)
+    }
+    res.status(200).send(file)
+});
 
 users.post("/register", (req, res) => {
     let today = new Date();
@@ -103,19 +140,25 @@ users.post('/update', (req, res) => {
 
 
     let today = new Date();
-    let userData = {
-        "first_name": req.body.first_name,
-        "last_name": req.body.last_name,
-        "last_update": today,
-        "username": req.body.username,
-        "position": req.body.position,
-        "dob": req.body.dob,
-        "city": req.body.city,
-        "state": req.body.state,
-        "zip": req.body.zip,
-        "phonenumber": req.body.phonenumber,
-        "address": req.body.address
+    let body = req.body
+    let userData = {};
+
+    for (let i in body) {
+        userData[i] = body[i];
     }
+    // let userData = {
+    //     "first_name": req.body.first_name,
+    //     "last_name": req.body.last_name,
+    //     "last_update": today,
+    //     "username": req.body.username,
+    //     "position": req.body.position,
+    //     "dob": req.body.dob,
+    //     "city": req.body.city,
+    //     "state": req.body.state,
+    //     "zip": req.body.zip,
+    //     "phonenumber": req.body.phonenumber,
+    //     "address": req.body.address
+    // }
     if (id) {
         User.update({ _id: id }, userData,  (err, numberAffected, rawResponse) => {
             console.log('numberAffected', numberAffected)

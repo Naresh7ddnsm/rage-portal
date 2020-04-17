@@ -21,7 +21,7 @@ const Header = props => {
         })
         
     }
-    const { first_name, last_name, USER_STATUS } = state.AUTH_USER;
+    const { first_name, last_name, image, USER_STATUS } = state.AUTH_USER;
 
     return (
         <React.Fragment>
@@ -82,8 +82,7 @@ const Header = props => {
                                                 <a href="#" className="list-group-item d-flex hide-show-toggler">
                                                     <div>
                                                         <figure className="avatar avatar-sm m-r-15">
-                                                            <img src="/assets/media/image/user/man_avatar1.jpg"
-                                                                className="rounded-circle" alt="user" />
+                                                            <img src="/assets/media/image/user/man_avatar1.jpg" className="rounded-circle" alt="user" />
                                                         </figure>
                                                     </div>
                                                     <div className="flex-grow-1">
@@ -308,7 +307,8 @@ const Header = props => {
                             <li className="nav-item dropdown">
                                 <a href="#" className="nav-link" title="User menu" data-toggle="dropdown">
                                     <figure className="avatar avatar-sm avatar-state-success">
-                                        <img src="/assets/media/image/user/women_avatar1.jpg" className="rounded-circle" alt="avatar" />
+                                        {/* <img src="/assets/media/image/user/women_avatar1.jpg" className="rounded-circle" alt="avatar" /> */}
+                                        <img src={image ? `${image}` : null} className="rounded-circle" alt="avatar" />
                                     </figure>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right dropdown-menu-big">
