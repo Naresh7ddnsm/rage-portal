@@ -21,7 +21,7 @@ const ProfileCard = (props) => {
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus repudiandae eveniet
                     harum.</p>
                 <Link to="/profile/update" className="btn btn-outline-primary">
-                    <i data-feather="edit-2" className="mr-2"></i> Edit Profile
+                    <i data-feather="edit-2" className="mr-2"></i> Edit Profile Image
                 </Link>
             </div>
             <hr className="m-0" />

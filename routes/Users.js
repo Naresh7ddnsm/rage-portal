@@ -45,7 +45,7 @@ users.post("/register", (req, res) => {
             }
         })
         .catch(error => {
-            res.json({ error });
+            res.json({ "error": error });
         })
 })
 
@@ -86,7 +86,7 @@ users.post('/logout', (req, res) => {
     const token = req.cookies.userToken;
     if(token){
         res.clearCookie('userToken', token, { httpOnly: true  });
-        res.send("Successfully logged out");
+        res.status(200).send("Successfully logged out");
     } else {
         res.json({error: "user dosn't exists"});
     }
@@ -95,7 +95,7 @@ users.post('/logout', (req, res) => {
 users.post('/update', (req, res) => {
 
     const token = req.cookies.userToken
-    console.log(token)
+    //console.log(token)
 
 
     const user = jwt_decode(token)
@@ -132,17 +132,17 @@ users.get("/auth", (req, res) => {
     const token = req.cookies.userToken;
 
     if(!token){
-        return res.send ({error: 'Unauthorized: No token provided'});
+        return res.status(403).send({error: 'Unauthorized: No token provided'});
     } else {
         jwt.verify(token, env.SECRET_KEY, (err, decoded) => {
             if (err) {
                 // Invalid Token
-                return res.send ({error: 'Unauthorized: Invalid token provided'});
+                return res.status(403).send({error: 'Unauthorized: Invalid token provided'});
                 // return res.send ({error: err});
             } else {
                 // Valid User
                 //req.email = decoded.email;
-                return res.send (decoded);
+                return res.status(200).send(decoded);
             }
           });
     }
@@ -157,20 +157,26 @@ users.get('/active', (req, res) => {
         User.findById({_id: id})
         .then(user => {
             if(user) {
-                let user_details = {
-                    "first_name": user.first_name,
-                    "last_name": user.last_name,
-                    "username": user.username,
-                    "email": user.email,
-                    "date": user.date,
-                    "address": user.address,
-                    "city": user.city,
-                    "dob": user.dob,
-                    "phonenumber": user.phonenumber,
-                    "position": user.position,
-                    "state" : user.state,
-                    "zip": user.zip
-                }
+
+                let user_details = user.toJSON();
+                delete user_details._id;
+                delete user_details.__v;
+                delete user_details.password;
+
+                // let user_details = {
+                //     "first_name": user.first_name,
+                //     "last_name": user.last_name,
+                //     "username": user.username,
+                //     "email": user.email,
+                //     "date": user.date,
+                //     "address": user.address,
+                //     "city": user.city,
+                //     "dob": user.dob,
+                //     "phonenumber": user.phonenumber,
+                //     "position": user.position,
+                //     "state" : user.state,
+                //     "zip": user.zip
+                // }
                 return res.send(user_details);
             } else {
                 return res.json({ error: "User dosn't exists" })
@@ -191,26 +197,33 @@ users.get('/:id', (req, res) => {
 
     // User.findById({_id: new ObjectId(id)})
     User.findById({_id: id})
+
     .then(user => {
 
         // console.log("useruser: ", user)
 
         if(user) {
-            let user_details = {
-                "first_name": user.first_name,
-                "last_name": user.last_name,
-                "username": user.username,
-                "email": user.email,
-                "date": user.date,
-                "address": user.address,
-                "city": user.city,
-                "dob": user.dob,
-                "phonenumber": user.phonenumber,
-                "position": user.position,
-                "state" : user.state,
-                "zip": user.zip
-            }
-            return res.send(user_details);
+
+            let user_details = user.toJSON();
+            delete user_details._id;
+            delete user_details.__v;
+            delete user_details.password;
+
+            // let user_details = {
+            //     "first_name": user.first_name,
+            //     "last_name": user.last_name,
+            //     "username": user.username,
+            //     "email": user.email,
+            //     "date": user.date,
+            //     "address": user.address,
+            //     "city": user.city,
+            //     "dob": user.dob,
+            //     "phonenumber": user.phonenumber,
+            //     "position": user.position,
+            //     "state" : user.state,
+            //     "zip": user.zip
+            // }
+            return res.status(200).send(user_details);
         } else {
             return res.json({ error: "User dosn't exists" })
         }
